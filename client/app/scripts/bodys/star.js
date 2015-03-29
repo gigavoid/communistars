@@ -1,11 +1,10 @@
 let Body = require('./body');
 
 let starMaterial = new THREE.MeshBasicMaterial({
-    color: 0xC9BD00,
-    wireframe: true
+    color: 0x00ff00
 });
 
-let starGeometry = new THREE.CircleGeometry(200, 32);
+let starGeometry = new THREE.SphereGeometry(7.351 * Math.pow(10, -8), 32, 32);
 
 class Star extends Body {
     constructor() {
