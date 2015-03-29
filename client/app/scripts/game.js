@@ -4,6 +4,8 @@ let Star = require('./star');
 var scene, camera, renderer;
 var geometry, material, mesh;
 
+var circleGeometry;
+
 init();
 animate();
 
@@ -13,13 +15,7 @@ function init() {
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
     camera.position.z = 1000;
-
-    geometry = new THREE.BoxGeometry( 200, 200, 200 );
-    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-
-   // mesh = new THREE.Mesh( geometry, material );
-    //scene.add( mesh );
-
+    
     mesh = new Star();
     scene.add(mesh);
 
@@ -40,3 +36,9 @@ function animate() {
     renderer.render( scene, camera );
 
 }
+
+window.addEventListener('resize', function(){
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});

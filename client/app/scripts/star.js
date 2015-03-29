@@ -5,8 +5,7 @@ let starMaterial = new THREE.MeshBasicMaterial({
     wireframe: true
 });
 
-let starGeometry = new THREE.BoxGeometry(200, 200, 200);
-
+let starGeometry = new THREE.CircleGeometry(200, 32);
 
 class Star extends Body {
     constructor() {
