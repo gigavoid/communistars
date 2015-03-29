@@ -1,5 +1,6 @@
-let Engine = require('./engine');
-let Star = require('./bodys/star');
+let Engine = require('./engine'),
+    Star = require('./bodys/star'),
+    Input = require('./input');
 
 
 class Game extends Engine {
@@ -41,13 +42,41 @@ class Game extends Engine {
 // add it to the scene
         this.scene.add(pointCloud);
 
+        this.star = new Star();
+        this.scene.add(this.star);
+
+        this.input = new Input();
     }
 
     update() {
-        //this.star.rotation.x += 0.01;
-        //this.star.rotation.y += 0.02;
-    }
+        if (this.input.isDown('moveForward')) {
+            this.camera.translateZ(-10);
+        }
 
+        if (this.input.isDown('moveBackward')) {
+            this.camera.translateZ(10);
+        }
+
+        if (this.input.isDown('moveLeft')) {
+            this.camera.translateX(-10);
+        }
+
+        if (this.input.isDown('moveRight')) {
+            this.camera.translateX(10);
+        }
+
+        if (this.input.isDown('moveDown')) {
+            this.camera.translateY(-10);
+        }
+
+        if (this.input.isDown('moveUp')) {
+            this.camera.translateY(10);
+        }
+
+        let diff = this.input.getMouseDiff();
+        this.camera.rotateY(diff.x * .001);
+        //this.camera.rotateZ(diff.z * .001);
+    }
 }
 
 let game = new Game();
