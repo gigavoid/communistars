@@ -17,32 +17,32 @@ class Game extends Engine {
 
     update() {
         if (this.input.isDown('moveForward')) {
-            this.camera.translateZ(-10);
+            this.camera.translateZ(-30);
         }
 
         if (this.input.isDown('moveBackward')) {
-            this.camera.translateZ(10);
+            this.camera.translateZ(30);
         }
 
         if (this.input.isDown('moveLeft')) {
-            this.camera.translateX(-10);
+            this.camera.translateX(-30);
         }
 
         if (this.input.isDown('moveRight')) {
-            this.camera.translateX(10);
+            this.camera.translateX(30);
         }
 
         if (this.input.isDown('moveDown')) {
-            this.camera.translateY(-10);
+            this.camera.translateY(-30);
         }
 
         if (this.input.isDown('moveUp')) {
-            this.camera.translateY(10);
+            this.camera.translateY(30);
         }
 
         let diff = this.input.getMouseDiff();
-        this.camera.rotateY(diff.x * .001);
-        //this.camera.rotateZ(diff.z * .001);
+        this.camera.rotateY(-diff.x * .0031);
+        this.camera.rotateX(-diff.y * .003);
     }
 }
 
