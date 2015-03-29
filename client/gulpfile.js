@@ -59,6 +59,12 @@ gulp.task('scripts', function() {
         .pipe(livereload());
 });
 
+gulp.task('static', function() {
+    return gulp.src('./app/static/**')
+        .pipe(gulp.dest('./out/static/'))
+        .pipe(livereload());
+});
+
 gulp.task('templates', function() {
 	return gulp.src('./app/templates/*.jade')
 		.pipe(plumber(exitIfNotWatching))
@@ -74,6 +80,7 @@ gulp.task('watch', function() {
 	gulp.watch('./app/styl/*', ['styles']);
 	gulp.watch('./app/templates/*', ['templates']);
 	gulp.watch('./app/scripts/*', ['scripts']);
+	gulp.watch('./app/static/*', ['static']);
 });
 
-gulp.task('default', ['styles', 'templates', 'scripts']);
+gulp.task('default', ['styles', 'templates', 'scripts', 'static']);
