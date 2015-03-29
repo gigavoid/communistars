@@ -72,6 +72,9 @@ class Input {
         let movementX = e.movementX;
         let movementY = e.movementY;
 
+        if (movementX > 1000 || movementY > 1000 || movementX < -1000 || movementY < -1000)
+            return;
+
         this.deltaX += movementX;
         this.deltaY += movementY;
     }
