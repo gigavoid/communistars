@@ -33,7 +33,7 @@ class Game extends Engine {
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
         // create the particle variables
-        var particleCount = 10000000,
+        var particleCount = Math.pow(10, 6) * 3,
             particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
                 color: Math.floor(Math.random()*0xFFFFFF),

@@ -3,9 +3,9 @@ let io = require('socket.io-client');
 class Client {
     constructor(socket) {
         socket.on('userinfo', (data) => {
-            this.serverInfo = data.info;
-
-            console.log('serverInfo', this.serverInfo);
+            this.id = data.info.id;
+            this.name = data.info.name;
+            console.log('My id: ' + this.id);
         });
 
         socket.on('new planet', (data) => {
@@ -27,6 +27,7 @@ function connect(opts, cb) {
     let socket = io.connect(opts.server.addr);
 
     socket.on('connect', function () {
+        setStatus(true);
         socket.emit('auth', {name: opts.name, authToken: opts.authToken});
 
         socket.on('authresult', function (data) {
@@ -37,6 +38,22 @@ function connect(opts, cb) {
             }
         });
     });
+
+    socket.on('disconnect', function () {
+        setStatus(false);
+    });
+}
+
+function setStatus(connected) {
+    let statusTxt = connected ? 'Connected' : 'Disconnected';
+    console.log('Server status: ' + statusTxt);
+    document.querySelector('.status').innerText = statusTxt;
+
+    if (connected) {
+        document.querySelector('.connected').style.display = 'block';
+    } else {
+        document.querySelector('.connected').style.display = 'none';
+    }
 }
 
 function ping(cb) {
@@ -47,3 +64,5 @@ module.exports = {
     connect: connect,
     ping: ping
 };
+
+setStatus('Disconnected');
