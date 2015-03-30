@@ -1,8 +1,9 @@
+'use strict';
 let Star = require('./star');
 
-class GalaxyGen {
+class Galaxy {
     constructor() {
-        this.galaxy = [];
+        this.stars = [];
 
         this.nrOfStars = 3000000;
         this.galaxySize = 54000;
@@ -10,7 +11,7 @@ class GalaxyGen {
         this.radius = this.galaxySize / 2;
         this.maxDistance = (Math.acos(0) * this.radius * (Math.PI * this.armLength)) / (this.armLength * 2);
         this.galaxyHeightMult = 4000;
-        generateGalaxy();
+        this.generateGalaxy();
     }
 
     generateGalaxy(){
@@ -20,7 +21,9 @@ class GalaxyGen {
             let heightRatio = (distFromCenter / this.maxDistance) * 10 - 2;
             let z = (-heightRatio / (Math.pow(Math.pow(heightRatio, 2) + 1 , 1/2)) + 1.15) * this.galaxyHeightMult * (Math.random() * 2 - 1);
             let x = distFromCenter * Math.cos(angle), y = distFromCenter * Math.sin(angle);
-            this.galaxy.push(new Star(x, y, z));
+            this.stars.push(new Star(x, y, z));
         }
     }
 }
+
+module.exports = Galaxy;

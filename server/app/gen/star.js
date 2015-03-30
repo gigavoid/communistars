@@ -1,3 +1,5 @@
+'use strict';
+
 let Planet = require('./planet');
 
 class Star{
@@ -7,7 +9,7 @@ class Star{
         this.size = (Math.random() * 5 + 5) * Math.pow(10, -8);
         this.color = Math.floor(Math.random() * 0xFFFFFF);
         this.position = {x: x, y: y, z: z};
-        generatePlanets();
+        this.generatePlanets();
     }
 
     generatePlanets(){

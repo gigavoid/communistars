@@ -1,10 +1,50 @@
+'use strict';
+
 var app = require('http').createServer();
 var io = require('socket.io')(app);
 var fs = require('fs');
+var Galaxy = require('./gen/galaxy');
 
 var port = process.env.PORT || 5050;
 app.listen(port);
 console.log('Socket.io server listening on port ' + port);
+
+console.log('generating');
+var galaxy = new Galaxy();
+console.log('done generating');
+
+let galaxyStream = fs.createWriteStream('world.galaxy');
+
+for (let i = 0; i < galaxy.stars.length; i++) {
+    let star = galaxy.stars[i];
+
+    // Color int (4), Size double (8), Poisiton double (8 * 3), NumPlanets int (4)
+    var starBuffer = new Buffer(4 + 8 + 8 * 3 + 4);
+    starBuffer.writeInt32BE(star.color);
+    starBuffer.writeDoubleBE(star.size);
+    starBuffer.writeDoubleBE(star.position.x);
+    starBuffer.writeDoubleBE(star.position.y);
+    starBuffer.writeDoubleBE(star.position.z);
+    starBuffer.writeInt8(star.planets.length);
+    galaxyStream.write(starBuffer);
+
+    for (let j = 0; j < star.planets.length; j++) {
+        let planet = star.planets[j];
+
+        // Distance double (8), Size dobule (8)
+        var planetBuffer = new Buffer(8 + 8);
+        planetBuffer.writeDoubleBE(planet.distance);
+        planetBuffer.writeDoubleBE(planet.size);
+        galaxyStream.write(planetBuffer);
+    }
+
+    galaxyStream.uncork()
+}
+
+galaxyStream.end();
+console.log('File writteen');
+
+
 
 
 var clients = [];

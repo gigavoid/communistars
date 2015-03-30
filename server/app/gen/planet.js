@@ -1,3 +1,5 @@
+'use strict';
+
 class Planet{
     constructor(){
         this.distance = (Math.random() * 4 + 3) * Math.pow(10, -4 - Math.random() * 2);
@@ -8,3 +10,5 @@ class Planet{
 
     }
 }
+
+module.exports = Planet;
