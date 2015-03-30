@@ -24,20 +24,13 @@ class Game extends Engine {
         //this.star = new Star();
         //this.scene.add(this.star);
 
-        var galaxySize = 27000,
-            armLength = 3,
-            r = galaxySize / 2,
-            maxAngle = (Math.PI * armLength * 2) + Math.PI,
-            maxDistance = (Math.acos(0) * r * (Math.PI * armLength)) / (armLength * 2),
-            galaxyHeightMult = 4000;
+
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
         // create the particle variables
-        var particleCount = 10000000,
+        var particleCount = 3000000,
             particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
-                color: Math.floor(Math.random()*0xFFFFFF),
-                size: 1,
                 map: THREE.ImageUtils.loadTexture(
                     "/static/images/particle.png"
                 ),
@@ -51,7 +44,7 @@ class Game extends Engine {
             var angle = Math.random() * (Math.PI * armLength * 2) + Math.PI;
             var r1 = Math.random();
             var r2 = Math.random();
-            var distFromCenter = (Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))) / (armLength * 2);
+            var distFromCenter = (Math.acos(Math.pow(Math.random(), 2)) * r * ((angle + Math.random() - 0.5) % (Math.PI * armLength))) / (armLength * 2);
            /* var a = (distFromCenter / maxDistance) * -20,
                 b = -(Math.pow(2, (a + 5) - 4.35) * Math.pow((a + 5) - 4.35, 3)),
                 z = (Math.random() * b / 4 - b / 8) * maxDistance;
@@ -71,7 +64,7 @@ class Game extends Engine {
             //var z = Math.pow((a - .07), 2) * 100 + Math.pow((a - .07), 3) * 1000;
             var z = -a/(Math.pow(Math.pow(a, 2) + 1 , 1/2)) + 1.1;
 
-            z*=galaxyHeightMult;
+            z*=galaxyHeightMult * (Math.random() * 2 - 1);
 
             z*= Math.random() * 2 - 1;
 
