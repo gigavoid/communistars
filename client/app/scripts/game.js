@@ -24,14 +24,20 @@ class Game extends Engine {
         //this.star = new Star();
         //this.scene.add(this.star);
 
-        var galaxySize = 27000;
+        var galaxySize = 27000,
+            armLength = 3,
+            r = galaxySize / 2,
+            maxAngle = (Math.PI * armLength * 2) + Math.PI,
+            maxDistance = (Math.acos(0) * r * (Math.PI * armLength)) / (armLength * 2),
+            galaxyHeightMult = 4000;
+        //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
         // create the particle variables
-        var particleCount = 1000000,
+        var particleCount = 10000000,
             particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
-                color: 0xFFFFFF,
-                size: 20,
+                color: Math.floor(Math.random()*0xFFFFFF),
+                size: 1,
                 map: THREE.ImageUtils.loadTexture(
                     "/static/images/particle.png"
                 ),
@@ -39,22 +45,43 @@ class Game extends Engine {
                 transparent: true
             });
 
+        var hDistance = 0;
         for (var p = 0; p < particleCount; p++) {
 
-            var r = galaxySize / 2;
-            var distFromCenter = r - Math.sqrt(Math.random() * Math.pow(r, 2));
-            var angle = Math.random() * (Math.PI * 2);
+            var angle = Math.random() * (Math.PI * armLength * 2) + Math.PI;
+            var r1 = Math.random();
+            var r2 = Math.random();
+            var distFromCenter = (Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))) / (armLength * 2);
+           /* var a = (distFromCenter / maxDistance) * -20,
+                b = -(Math.pow(2, (a + 5) - 4.35) * Math.pow((a + 5) - 4.35, 3)),
+                z = (Math.random() * b / 4 - b / 8) * maxDistance;
+*/
+            //var z = Math.pow((distFromCenter / maxDistance), 2) * 2000 - Math.max(0, Math.pow((distFromCenter / maxDistance), 2) * 5000);
 
-            var pX = distFromCenter * Math.cos(angle),
-                pY = distFromCenter * Math.sin(angle);
+            if (distFromCenter > hDistance)
+                hDistance = distFromCenter;
 
-            //var x = (distFromCenter / r) * -20;
-            //var y = -(Math.pow(2, x - 4.35) * Math.pow(x - 4.35, 3));
-            var height = Math.sqrt(Math.random() * Math.pow(r - distFromCenter, 2));
-            var pZ = Math.random() * height - height / 2,
-                particle = new THREE.Vector3(pX, pY, pZ);
+            if (hDistance > 33000) {
+                //debugger;
+            }
+
+            var a = (distFromCenter / maxDistance) * 10 - 2;
+
+
+            //var z = Math.pow((a - .07), 2) * 100 + Math.pow((a - .07), 3) * 1000;
+            var z = -a/(Math.pow(Math.pow(a, 2) + 1 , 1/2)) + 1.1;
+
+            z*=galaxyHeightMult;
+
+            z*= Math.random() * 2 - 1;
+
+            var x = distFromCenter * Math.cos(angle),
+                y = distFromCenter * Math.sin(angle),
+                particle = new THREE.Vector3(x, y, z);
             particles.vertices.push(particle);
         }
+
+        console.log('h', hDistance, distFromCenter);
 
         var pointCloud = new THREE.PointCloud(
             particles,

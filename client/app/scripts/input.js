@@ -3,15 +3,15 @@ let KeyboardJS = require('keyboardjs');
 /**
  * Speed values in lightyears / sec
  */
-const SPEED_FORWARD = 3000,
-    SPEED_BACKWARD = 3000,
-    SPEED_SIDE = 3000,
-    SPEED_VERTICAL = 3000,
+const SPEED_FORWARD = 3000 * 5,
+    SPEED_BACKWARD = 3000 * 5,
+    SPEED_SIDE = 3000 * 5,
+    SPEED_VERTICAL = 3000 * 5,
 
     /**
      * Roll speed in radians / sec
      */
-    ROLL_SPEED = 1,
+    ROLL_SPEED = 1 * 5,
 
     /**
      * Mouse sensitivity, how many radians each pixel of mouse movement should be translated to
