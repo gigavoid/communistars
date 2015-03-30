@@ -39,27 +39,33 @@ gulp.task('styles', function() {
         .pipe(livereload());
 });
 
-gulp.task('scripts', function() {
-    var browserifyOpts = {
-        entries: './game.js',
-        basedir: './app/scripts/',
-        debug: true
-    };
+var browserifyOpts = {
+    entries: './game.js',
+    basedir: './app/scripts/',
+    debug: true,
+	 cache: {},
+	    packageCache: {}
+};
+var bundler = watchify(browserify(browserifyOpts))
+	.transform(babelify);
 
-    return browserify(browserifyOpts)
-        .transform(babelify)
-        .bundle()
-        .on('error', function(err){
+gulp.task('scripts', function() {
+    var init = bundler.bundle()
+		.on('error', function(err){
             gutil.log(err.message);
             this.emit('end');
-        })
-        .pipe(plumber(exitIfNotWatching))
-        .pipe(source('game.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('./out/static/'))
+		})
+	    .pipe(plumber(exitIfNotWatching))
+        .pipe(source('game.js'));
+
+    if (!watching) {
+        // If not watching (production build)
+        init = init.pipe(buffer())
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(uglify())
+            .pipe(sourcemaps.write('.'));
+    }
+    return init.pipe(gulp.dest('./out/static/'))
         .pipe(livereload());
 });
 
@@ -79,7 +85,7 @@ gulp.task('templates', function() {
 
 gulp.task('watch', function() {
 	watching = true;
-	gulp.start('default');
+	gulp.start(['styles', 'templates', 'scripts', 'static']);
 	livereload.listen();
 	gulp.watch('./app/styl/*', ['styles']);
 	gulp.watch('./app/templates/*', ['templates']);
@@ -87,4 +93,6 @@ gulp.task('watch', function() {
 	gulp.watch('./app/static/*', ['static']);
 });
 
-gulp.task('default', ['styles', 'templates', 'scripts', 'static']);
+gulp.task('default', ['styles', 'templates', 'scripts', 'static'], function() {
+    process.exit(0);
+});

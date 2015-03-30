@@ -2,7 +2,7 @@ class Engine {
     constructor(camera) {
         this.camera = camera;
         this.scene = new THREE.Scene();
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({antialiasing: true });
         this.clock = new THREE.Clock();
 
         document.querySelector('.game-window').appendChild(this.renderer.domElement);
