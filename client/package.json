@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "babelify": "^5.0.4",
+    "browser-sync": "^2.5.0",
     "browserify": "^9.0.3",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
