@@ -58,7 +58,7 @@ io.on('connection', function (socket) {
         for (var i = 0; i < planets.length; i++) {
             var planet = planets[i];
 
-            io.emit('new planet', {planet: planet});
+            socket.emit('new planet', {planet: planet});
         }
 
         socket.emit('userinfo', {info: client.getUserInfo()});
