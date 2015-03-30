@@ -3,6 +3,12 @@ html
         link(rel='stylesheet', href='/static/game.css')
     body
         .game-window
+            .user-list
+                span.status-line='Status: '
+                    span.status Connecting
+                div.connected.hidden-by-default
+                    h2 Connected Users:
+                    ul.connected-users
 
         script(src='/static/lib/three.min.js')
         script(src='/static/lib/stats.min.js')

@@ -21,15 +21,8 @@ class Game extends Engine {
             }
         });
 
-        //this.star = new Star();
-        //this.scene.add(this.star);
-
-
-        //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
-
-        // create the particle variables
-        var particleCount = 3000000,
-            particles = new THREE.Geometry(),
+        // kan vara viktigt
+        /*particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
                 map: THREE.ImageUtils.loadTexture(
                     "/static/images/particle.png"
@@ -38,52 +31,11 @@ class Game extends Engine {
                 transparent: true
             });
 
-        var hDistance = 0;
-        for (var p = 0; p < particleCount; p++) {
-
-            var angle = Math.random() * (Math.PI * armLength * 2) + Math.PI;
-            var r1 = Math.random();
-            var r2 = Math.random();
-            var distFromCenter = (Math.acos(Math.pow(Math.random(), 2)) * r * ((angle + Math.random() - 0.5) % (Math.PI * armLength))) / (armLength * 2);
-           /* var a = (distFromCenter / maxDistance) * -20,
-                b = -(Math.pow(2, (a + 5) - 4.35) * Math.pow((a + 5) - 4.35, 3)),
-                z = (Math.random() * b / 4 - b / 8) * maxDistance;
-*/
-            //var z = Math.pow((distFromCenter / maxDistance), 2) * 2000 - Math.max(0, Math.pow((distFromCenter / maxDistance), 2) * 5000);
-
-            if (distFromCenter > hDistance)
-                hDistance = distFromCenter;
-
-            if (hDistance > 33000) {
-                //debugger;
-            }
-
-            var a = (distFromCenter / maxDistance) * 10 - 2;
-
-
-            //var z = Math.pow((a - .07), 2) * 100 + Math.pow((a - .07), 3) * 1000;
-            var z = -a/(Math.pow(Math.pow(a, 2) + 1 , 1/2)) + 1.1;
-
-            z*=galaxyHeightMult * (Math.random() * 2 - 1);
-
-            z*= Math.random() * 2 - 1;
-
-            var x = distFromCenter * Math.cos(angle),
-                y = distFromCenter * Math.sin(angle),
-                particle = new THREE.Vector3(x, y, z);
-            particles.vertices.push(particle);
-        }
-
-        console.log('h', hDistance, distFromCenter);
-
         var pointCloud = new THREE.PointCloud(
             particles,
             pMaterial);
 
-        this.scene.add(pointCloud);
-
-        this.star = new Star();
-        this.scene.add(this.star);
+        this.scene.add(pointCloud);*/
 
         this.input = new Input();
     }
