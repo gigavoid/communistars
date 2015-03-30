@@ -89,7 +89,13 @@ class Input {
         document.body.exitPointerLock();
     }
 
+    isCursorLocked() {
+        return !!document.pointerLockElement;
+    }
+
     mouseMove(e) {
+        if (!this.isCursorLocked())
+            return;
         let movementX = e.movementX;
         let movementY = e.movementY;
 
