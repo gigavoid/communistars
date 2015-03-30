@@ -24,34 +24,42 @@ class Game extends Engine {
         //this.star = new Star();
         //this.scene.add(this.star);
 
+        var galaxySize = 27000;
+
         // create the particle variables
-        var particleCount = 1800,
+        var particleCount = 1000000,
             particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
                 color: 0xFFFFFF,
-                size: 20
+                size: 20,
+                map: THREE.ImageUtils.loadTexture(
+                    "/static/images/particle.png"
+                ),
+                blending: THREE.AdditiveBlending,
+                transparent: true
             });
 
-// now create the individual particles
         for (var p = 0; p < particleCount; p++) {
 
-            // create a particle with random
-            // position values, -250 -> 250
-            var pX = Math.random() * 500 - 250,
-                pY = Math.random() * 500 - 250,
-                pZ = Math.random() * 500 - 250,
-                particle = new THREE.Vector3(pX, pY, pZ)
+            var r = galaxySize / 2;
+            var distFromCenter = r - Math.sqrt(Math.random() * Math.pow(r, 2));
+            var angle = Math.random() * (Math.PI * 2);
 
-            // add it to the geometry
+            var pX = distFromCenter * Math.cos(angle),
+                pY = distFromCenter * Math.sin(angle);
+
+            //var x = (distFromCenter / r) * -20;
+            //var y = -(Math.pow(2, x - 4.35) * Math.pow(x - 4.35, 3));
+            var height = Math.sqrt(Math.random() * Math.pow(r - distFromCenter, 2));
+            var pZ = Math.random() * height - height / 2,
+                particle = new THREE.Vector3(pX, pY, pZ);
             particles.vertices.push(particle);
         }
 
-// create the particle system
         var pointCloud = new THREE.PointCloud(
             particles,
             pMaterial);
 
-// add it to the scene
         this.scene.add(pointCloud);
 
         this.star = new Star();
