@@ -3,6 +3,7 @@ class Engine {
         this.camera = camera;
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer();
+        this.clock = new THREE.Clock();
 
         document.querySelector('.game-window').appendChild(this.renderer.domElement);
 
@@ -28,7 +29,7 @@ class Engine {
         window.requestAnimationFrame(() => {
             this.animate()
         });
-        this.update();
+        this.update(this.clock.getDelta());
         this.renderer.render(this.scene, this.camera);
     }
 

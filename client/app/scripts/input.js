@@ -1,5 +1,23 @@
 let KeyboardJS = require('keyboardjs');
 
+/**
+ * Speed values in lightyears / sec
+ */
+const SPEED_FORWARD = 3000,
+    SPEED_BACKWARD = 3000,
+    SPEED_SIDE = 3000,
+    SPEED_VERTICAL = 3000,
+
+    /**
+     * Roll speed in radians / sec
+     */
+    ROLL_SPEED = 1,
+
+    /**
+     * Mouse sensitivity, how many radians each pixel of mouse movement should be translated to
+     */
+    MOUSE_SENSITIVITY = .005;
+
 class Input {
     constructor() {
         this.mappings = {};
@@ -19,6 +37,9 @@ class Input {
         this.map('moveUp', 'space');
 
         this.map('moveDown', 'shift');
+
+        this.map('rollLeft', 'q');
+        this.map('rollRight', 'e');
 
         document.body.addEventListener('click', () => this.lockCursor());
         document.addEventListener('mousemove', (e) => this.mouseMove(e));
@@ -77,6 +98,44 @@ class Input {
 
         this.deltaX += movementX;
         this.deltaY += movementY;
+    }
+
+    updateCamera(camera, dt) {
+        if (this.isDown('moveForward')) {
+            camera.translateZ(-SPEED_FORWARD * dt);
+        }
+
+        if (this.isDown('moveBackward')) {
+            camera.translateZ(SPEED_BACKWARD * dt);
+        }
+
+        if (this.isDown('moveLeft')) {
+            camera.translateX(-SPEED_SIDE * dt);
+        }
+
+        if (this.isDown('moveRight')) {
+            camera.translateX(SPEED_SIDE * dt);
+        }
+
+        if (this.isDown('moveDown')) {
+            camera.translateY(-SPEED_VERTICAL * dt);
+        }
+
+        if (this.isDown('moveUp')) {
+            camera.translateY(SPEED_VERTICAL * dt);
+        }
+
+        if (this.isDown('rollLeft')) {
+            camera.rotateZ(ROLL_SPEED * dt);
+        }
+
+        if (this.isDown('rollRight')) {
+            camera.rotateZ(-ROLL_SPEED * dt);
+        }
+
+        let diff = this.getMouseDiff();
+        camera.rotateY(-diff.x * MOUSE_SENSITIVITY);
+        camera.rotateX(-diff.y * MOUSE_SENSITIVITY);
     }
 }
 

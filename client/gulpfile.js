@@ -49,6 +49,10 @@ gulp.task('scripts', function() {
     return browserify(browserifyOpts)
         .transform(babelify)
         .bundle()
+        .on('error', function(err){
+            gutil.log(err.message);
+            this.emit('end');
+        })
         .pipe(plumber(exitIfNotWatching))
         .pipe(source('game.js'))
         .pipe(buffer())

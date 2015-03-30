@@ -1,13 +1,25 @@
 let Engine = require('./engine'),
     Star = require('./bodys/star'),
-    Input = require('./input');
-
+    Input = require('./input'),
+    client = require('./client'),
+    stats = require('./stats'),
+    Planet = require('./bodys/planet');
 
 class Game extends Engine {
     constructor() {
-        let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, Math.pow(10, -17), 10000 );
+        let camera = new THREE.PerspectiveCamera( 75, 0, Math.pow(10, -17), 10000 );
         camera.position.z = 1000;
         super(camera);
+
+        stats.init();
+
+        client.connect({}, (err, client) => {
+            if (err) alert('Could not connect to the server:\n' + err);
+
+            client.newPlanet = (planet) => {
+                this.scene.add(new Planet(planet.pos.x, planet.pos.y, planet.pos.z));
+            }
+        });
 
         //this.star = new Star();
         //this.scene.add(this.star);
@@ -48,34 +60,10 @@ class Game extends Engine {
         this.input = new Input();
     }
 
-    update() {
-        if (this.input.isDown('moveForward')) {
-            this.camera.translateZ(-30);
-        }
-
-        if (this.input.isDown('moveBackward')) {
-            this.camera.translateZ(30);
-        }
-
-        if (this.input.isDown('moveLeft')) {
-            this.camera.translateX(-30);
-        }
-
-        if (this.input.isDown('moveRight')) {
-            this.camera.translateX(30);
-        }
-
-        if (this.input.isDown('moveDown')) {
-            this.camera.translateY(-30);
-        }
-
-        if (this.input.isDown('moveUp')) {
-            this.camera.translateY(30);
-        }
-
-        let diff = this.input.getMouseDiff();
-        this.camera.rotateY(-diff.x * .0031);
-        this.camera.rotateX(-diff.y * .003);
+    update(dt) {
+        stats.begin();
+        this.input.updateCamera(this.camera, dt);
+        stats.end();
     }
 }
 
