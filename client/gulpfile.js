@@ -82,10 +82,10 @@ gulp.task('watch', function() {
 	watching = true;
 	gulp.start(['styles', 'templates', 'scripts', 'static']);
 
-	gulp.watch('./app/styl/*', ['styles']);
-	gulp.watch('./app/templates/*', ['templates']);
-	gulp.watch('./app/scripts/*', ['scripts']);
-	gulp.watch('./app/static/*', ['static']);
+	gulp.watch('app/styl/**', ['styles']);
+	gulp.watch('app/templates/**', ['templates']);
+	gulp.watch('app/scripts/**', ['scripts']);
+	gulp.watch('app/static/**', ['static']);
 
     browserSync({
         server: {
