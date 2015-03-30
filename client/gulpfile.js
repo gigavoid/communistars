@@ -7,8 +7,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     plumber = require('gulp-plumber'),
     gutil = require('gulp-util'),
-    concat = require('gulp-concat'),
-    //babel = require('gulp-babel'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
     babelify = require('babelify'),
@@ -27,6 +25,14 @@ function exitIfNotWatching(error) {
 	}
 }
 
+var bundler = watchify(browserify({
+    entries: './game.js',
+    basedir: './app/scripts/',
+    debug: true,
+    cache: {},
+    packageCache: {}
+})).transform(babelify);
+
 gulp.task('styles', function() {
     return gulp.src('./app/styl/game.styl')
         .pipe(plumber(exitIfNotWatching))
@@ -37,16 +43,6 @@ gulp.task('styles', function() {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./out/static/'));
 });
-
-var browserifyOpts = {
-    entries: './game.js',
-    basedir: './app/scripts/',
-    debug: true,
-	 cache: {},
-	    packageCache: {}
-};
-var bundler = watchify(browserify(browserifyOpts))
-	.transform(babelify);
 
 gulp.task('scripts', function() {
     var init = bundler.bundle()
