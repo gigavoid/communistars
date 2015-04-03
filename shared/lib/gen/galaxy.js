@@ -28,7 +28,7 @@ class Galaxy {
             let heightRatio = (distFromCenter / this.maxDistance) * 10 - 2;
             let z = (-heightRatio / (Math.pow(Math.pow(heightRatio, 2) + 1 , 1/2)) + 1.15) * this.galaxyHeightMult * (this.random.next() * 2 - 1);
             let x = distFromCenter * Math.cos(angle), y = distFromCenter * Math.sin(angle);
-            this.stars.push(new Star(x, y, z, this.r.getSeed()));
+            this.stars.push(new Star(x, y, z, this.random));
         }
     }
 }
