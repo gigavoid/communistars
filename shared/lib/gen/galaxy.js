@@ -1,8 +1,10 @@
 'use strict';
 let Star = require('./star');
+let Random = require('../random/random');
 
 class Galaxy {
     constructor() {
+        this.random = new Random(1337);
         this.stars = [];
 
         this.nrOfStars = 3000000;
@@ -16,12 +18,12 @@ class Galaxy {
 
     generateGalaxy(){
         for (let i = 0; i < this.nrOfStars; i++){
-            let angle = Math.random() * (Math.PI * this.armLength * 2) + Math.PI;
-            let distFromCenter = (Math.acos(Math.pow(Math.random(), 2)) * this.radius * ((angle + Math.random() - 0.5) % (Math.PI * this.armLength))) / (this.armLength * 2);
+            let angle = this.random.next() * (Math.PI * this.armLength * 2) + Math.PI;
+            let distFromCenter = (Math.acos(Math.pow(this.random.next(), 2)) * this.radius * ((angle + this.random.next() - 0.5) % (Math.PI * this.armLength))) / (this.armLength * 2);
             let heightRatio = (distFromCenter / this.maxDistance) * 10 - 2;
-            let z = (-heightRatio / (Math.pow(Math.pow(heightRatio, 2) + 1 , 1/2)) + 1.15) * this.galaxyHeightMult * (Math.random() * 2 - 1);
+            let z = (-heightRatio / (Math.pow(Math.pow(heightRatio, 2) + 1 , 1/2)) + 1.15) * this.galaxyHeightMult * (this.random.next() * 2 - 1);
             let x = distFromCenter * Math.cos(angle), y = distFromCenter * Math.sin(angle);
-            this.stars.push(new Star(x, y, z));
+            this.stars.push(new Star(x, y, z, this.r.getSeed()));
         }
     }
 }

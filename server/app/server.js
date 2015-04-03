@@ -2,7 +2,7 @@
 
 var app = require('http').createServer();
 var io = require('socket.io')(app);
-var Galaxy = require('./gen/galaxy');
+var Galaxy = require('../../shared/lib/gen/galaxy');
 var FileHandler = require('./fileHandler');
 
 var port = process.env.PORT || 5050;
