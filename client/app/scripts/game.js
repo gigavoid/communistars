@@ -3,7 +3,8 @@ let Engine = require('./engine'),
     Input = require('./input'),
     client = require('./client'),
     stats = require('./stats'),
-    Planet = require('./bodys/planet');
+    Planet = require('./bodys/planet'),
+    Galaxy = require('../../../shared/lib/gen/galaxy');
 
 class Game extends Engine {
     constructor() {
@@ -21,8 +22,10 @@ class Game extends Engine {
             }
         });
 
-        // kan vara viktigt
-        /*particles = new THREE.Geometry(),
+        this.galaxy = new Galaxy(1337);
+        this.galaxy.generateGalaxy();
+
+        let particles = new THREE.Geometry(),
             pMaterial = new THREE.PointCloudMaterial({
                 map: THREE.ImageUtils.loadTexture(
                     "/static/images/particle.png"
@@ -31,11 +34,22 @@ class Game extends Engine {
                 transparent: true
             });
 
+        for (var p = 0; p < this.galaxy.stars.length; p++) {
+            var pX = this.galaxy.stars[p].position.x,
+                pY = this.galaxy.stars[p].position.y,
+                pZ = this.galaxy.stars[p].position.z,
+                particle = new THREE.Vertex(
+                    new THREE.Vector3(pX, pY, pZ)
+                );
+                particle.color = this.galaxy.stars[p].color;
+            particles.vertices.push(particle);
+        }
+
         var pointCloud = new THREE.PointCloud(
             particles,
             pMaterial);
 
-        this.scene.add(pointCloud);*/
+        this.scene.add(pointCloud);
 
         this.input = new Input();
     }

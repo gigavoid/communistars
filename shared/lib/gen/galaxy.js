@@ -3,8 +3,8 @@ let Star = require('./star');
 let Random = require('../random/random');
 
 class Galaxy {
-    constructor() {
-        this.random = new Random(1337);
+    constructor(seed) {
+        this.random = new Random(seed);
         this.stars = [];
 
         this.nrOfStars = 3000000;
