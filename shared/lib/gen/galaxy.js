@@ -5,7 +5,7 @@ let Random = require('random-js');
 
 class Galaxy {
     constructor(seed) {
-        this.random = Random.engines.mt19937().seed(seed);
+        this.random = new Random(Random.engines.mt19937().seed(seed));
 
         this.random.next = function() {
             return this.random.real(0, 1);
