@@ -1,7 +1,5 @@
 'use strict';
 
-let Random = require('../random/random');
-
 class Planet{
     constructor(random){
         this.distance = (random.next() * 4 + 3) * Math.pow(10, -4 - random.next() * 2);

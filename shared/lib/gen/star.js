@@ -1,7 +1,6 @@
 'use strict';
 
 let Planet = require('./planet');
-let Random = require('../random/random');
 
 class Star{
     constructor(x, y, z, random){

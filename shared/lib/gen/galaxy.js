@@ -1,10 +1,16 @@
 'use strict';
+
 let Star = require('./star');
-let Random = require('../random/random');
+let Random = require('random-js');
 
 class Galaxy {
     constructor(seed) {
-        this.random = new Random(seed);
+        this.random = Random.engines.mt19937().seed(seed);
+
+        this.random.next = function() {
+            return this.random.real(0, 1);
+        };
+
         this.stars = [];
 
         this.nrOfStars = 3000000;
@@ -13,7 +19,6 @@ class Galaxy {
         this.radius = this.galaxySize / 2;
         this.maxDistance = (Math.acos(0) * this.radius * (Math.PI * this.armLength)) / (this.armLength * 2);
         this.galaxyHeightMult = 4000;
-        this.generateGalaxy();
     }
 
     generateGalaxy(){
