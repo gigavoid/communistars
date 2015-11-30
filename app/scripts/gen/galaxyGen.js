@@ -1,10 +1,10 @@
 let Star = require('./star');
 
 class GalaxyGen {
-    constructor() {
-        this.galaxy = [];
+    constructor(stars) {
+        this.galaxy = [stars];
 
-        this.nrOfStars = 3000000;
+        this.nrOfStars = stars;
         this.galaxySize = 54000;
         this.armLength = 3;
         this.radius = this.galaxySize / 2;
@@ -13,7 +13,12 @@ class GalaxyGen {
         generateGalaxy();
     }
 
+    getStarArray(){
+        return this.galaxy;
+    }
+
     generateGalaxy(){
+        this.galaxy = [nrOfStars];
         for (let i = 0; i < this.nrOfStars; i++){
             let angle = Math.random() * (Math.PI * this.armLength * 2) + Math.PI;
             let distFromCenter = (Math.acos(Math.pow(Math.random(), 2)) * this.radius * ((angle + Math.random() - 0.5) % (Math.PI * this.armLength))) / (this.armLength * 2);

@@ -11,7 +11,7 @@ const SPEED_FORWARD = 3000 * 5,
     /**
      * Roll speed in radians / sec
      */
-    ROLL_SPEED = 1 * 5,
+    ROLL_SPEED = 5,
 
     /**
      * Mouse sensitivity, how many radians each pixel of mouse movement should be translated to
