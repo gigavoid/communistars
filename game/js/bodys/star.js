@@ -1,3 +1,4 @@
+const THREE = require('three');
 let Body = require('./body');
 
 let starMaterial = new THREE.MeshBasicMaterial({

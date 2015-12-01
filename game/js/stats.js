@@ -1,3 +1,5 @@
+const Stats = require('stats-js');
+
 var stats = new Stats();
 
 function init() {

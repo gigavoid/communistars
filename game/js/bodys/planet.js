@@ -1,4 +1,5 @@
-let Body = require('./body');
+const THREE = require('three');
+const Body = require('./body');
 
 let planetMaterial = new THREE.MeshBasicMaterial({
     color: 0xff0000

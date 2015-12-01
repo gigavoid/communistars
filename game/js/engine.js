@@ -1,3 +1,5 @@
+const THREE = require('three');
+
 class Engine {
     constructor(camera) {
         this.camera = camera;

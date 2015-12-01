@@ -3,7 +3,9 @@ let Engine = require('./engine'),
     Star = require('./bodys/star'),
     Input = require('./input'),
     stats = require('./stats'),
-    Planet = require('./bodys/planet');
+    Planet = require('./bodys/planet'),
+    THREE = require('three'),
+    particleImg = require('../static/images/particle.png');
 
 class Game extends Engine {
     constructor() {
@@ -15,9 +17,9 @@ class Game extends Engine {
 
         let stars = 3000000;
 
-        let galaxyGen = new GalaxyGen(stars);
+        //let galaxyGen = new GalaxyGen(stars);
 
-        galaxyGen.generateGalaxy();
+        //galaxyGen.generateGalaxy();
         //this.star = new Star();
         //this.scene.add(this.star);
 
@@ -25,24 +27,24 @@ class Game extends Engine {
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
         // create the particle variables
-        var particleCount = stars,
-            particles = new THREE.Geometry(),
-            pMaterial = new THREE.PointCloudMaterial({
-                map: THREE.ImageUtils.loadTexture(
-                    "/static/images/particle.png"
-                ),
+         var particles = new THREE.Geometry(),
+         pMaterial = new THREE.PointCloudMaterial({
+                map: THREE.ImageUtils.loadTexture(particleImg),
                 blending: THREE.AdditiveBlending,
                 transparent: true
             });
 
+            var particleCount = 1;
+
         var hDistance = 0;
         for (var p = 0; p < particleCount; p++) {
-            var star = GalaxyGen.getStarArray()[p];
-            var particle = new THREE.Vector3(star.x, star.y, star.z);
+            //var star = GalaxyGen.getStarArray()[p];
+            //var particle = new THREE.Vector3(star.x, star.y, star.z);
+            var particle = new THREE.Vector3(0, 0, 0);
             particles.vertices.push(particle);
         }
 
-        console.log('h', hDistance, distFromCenter);
+        //console.log('h', hDistance, distFromCenter);
 
         var pointCloud = new THREE.PointCloud(
             particles,

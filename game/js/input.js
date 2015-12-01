@@ -1,4 +1,5 @@
 let KeyboardJS = require('keyboardjs');
+console.log(KeyboardJS)
 
 /**
  * Speed values in lightyears / sec
