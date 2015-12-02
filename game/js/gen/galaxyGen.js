@@ -10,7 +10,7 @@ class GalaxyGen {
         this.radius = this.galaxySize / 2;
         this.maxDistance = (Math.acos(0) * this.radius * (Math.PI * this.armLength)) / (this.armLength * 2);
         this.galaxyHeightMult = 4000;
-        generateGalaxy();
+        this.generateGalaxy();
     }
 
     getStarArray(){
@@ -18,7 +18,7 @@ class GalaxyGen {
     }
 
     generateGalaxy(){
-        this.galaxy = [nrOfStars];
+        this.galaxy = [this.nrOfStars];
         for (let i = 0; i < this.nrOfStars; i++){
             let angle = Math.random() * (Math.PI * this.armLength * 2) + Math.PI;
             let distFromCenter = (Math.acos(Math.pow(Math.random(), 2)) * this.radius * ((angle + Math.random() - 0.5) % (Math.PI * this.armLength))) / (this.armLength * 2);

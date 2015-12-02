@@ -18,35 +18,27 @@ class Game extends Engine {
         let stars = 3000000;
 
         let galaxyGen = new GalaxyGen(stars);
-
-        galaxyGen.generateGalaxy();
-
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
         // create the particle variables
-         var particles = new THREE.Geometry(),
-         pMaterial = new THREE.PointCloudMaterial({
-                map: THREE.ImageUtils.loadTexture(particleImg),
-                blending: THREE.AdditiveBlending,
-                transparent: true
-            });
+        var particles = new THREE.Geometry(),
+        pMaterial = new THREE.PointsMaterial({
+            map: THREE.TextureLoader(particleImg),
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
 
-            var particleCount = stars;
-
-        var hDistance = 0;
-        for (var p = 0; p < particleCount; p++) {
-            var star = GalaxyGen.getStarArray()[p];
+        for (var p = 0; p < stars; p++) {
+            var star = galaxyGen.getStarArray()[p];
             var particle = new THREE.Vector3(star.x, star.y, star.z);
             particles.vertices.push(particle);
         }
 
-        //console.log('h', hDistance, distFromCenter);
-
-        var pointCloud = new THREE.PointCloud(
+        var points = new THREE.Points(
             particles,
             pMaterial);
 
-        this.scene.add(pointCloud);
+        this.scene.add(points);
 
         this.input = new Input();
     }
