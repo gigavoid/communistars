@@ -17,12 +17,9 @@ class Game extends Engine {
 
         let stars = 3000000;
 
-        //let galaxyGen = new GalaxyGen(stars);
+        let galaxyGen = new GalaxyGen(stars);
 
-        //galaxyGen.generateGalaxy();
-        //this.star = new Star();
-        //this.scene.add(this.star);
-
+        galaxyGen.generateGalaxy();
 
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
 
@@ -34,13 +31,12 @@ class Game extends Engine {
                 transparent: true
             });
 
-            var particleCount = 1;
+            var particleCount = stars;
 
         var hDistance = 0;
         for (var p = 0; p < particleCount; p++) {
-            //var star = GalaxyGen.getStarArray()[p];
-            //var particle = new THREE.Vector3(star.x, star.y, star.z);
-            var particle = new THREE.Vector3(0, 0, 0);
+            var star = GalaxyGen.getStarArray()[p];
+            var particle = new THREE.Vector3(star.x, star.y, star.z);
             particles.vertices.push(particle);
         }
 
@@ -51,9 +47,6 @@ class Game extends Engine {
             pMaterial);
 
         this.scene.add(pointCloud);
-
-        this.star = new Star();
-        this.scene.add(this.star);
 
         this.input = new Input();
     }

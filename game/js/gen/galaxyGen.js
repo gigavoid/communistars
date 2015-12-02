@@ -29,3 +29,5 @@ class GalaxyGen {
         }
     }
 }
+
+module.exports = GalaxyGen;
