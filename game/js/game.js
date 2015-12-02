@@ -1,9 +1,7 @@
 let Engine = require('./engine'),
     GalaxyGen = require('./gen/galaxyGen'),
-    Star = require('./bodys/star'),
     Input = require('./input'),
     stats = require('./stats'),
-    Planet = require('./bodys/planet'),
     THREE = require('three'),
     particleImg = require('../static/images/particle.png');
 
@@ -23,7 +21,7 @@ class Game extends Engine {
         // create the particle variables
         var particles = new THREE.Geometry(),
         pMaterial = new THREE.PointsMaterial({
-            map: THREE.TextureLoader(particleImg),
+            map: THREE.ImageUtils.loadTexture(particleImg),
             blending: THREE.AdditiveBlending,
             transparent: true
         });
@@ -46,6 +44,7 @@ class Game extends Engine {
     update(dt) {
         stats.begin();
         this.input.updateCamera(this.camera, dt);
+        console .log(this.camera.position);
         stats.end();
     }
 }
