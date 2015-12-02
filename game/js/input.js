@@ -1,5 +1,3 @@
-let KeyboardJS = require('keyboardjs');
-console.log(KeyboardJS)
 
 /**
  * Speed values in lightyears / sec
@@ -47,6 +45,33 @@ class Input {
 
         this.deltaX = 0;
         this.deltaY = 0;
+
+        this.activeKeys = [];
+
+        this.addEvents();
+    }
+
+    addEvents() {
+        console.log('addevent');
+
+        window.addEventListener('keydown', e => {
+            this.activeKeys[this.keycodeToString(e.which)] = true;
+        });
+
+        window.addEventListener('keyup', e => {
+            delete this.activeKeys[this.keycodeToString(e.which)];
+        });
+    }
+
+    keycodeToString(which) {
+        if (which === 32) {
+            return 'space';
+        } else if (which === 16) {
+            return 'shift';
+        } else {
+            return String.fromCharCode(which).toLowerCase();
+        }
+        return key;
     }
 
     getMouseDiff() {
@@ -64,11 +89,9 @@ class Input {
         if (!this.mappings[action])
             return false;
 
-        var activeKeys = KeyboardJS.activeKeys();
-
         var ret = false;
         this.mappings[action].forEach((key) => {
-            if (activeKeys.indexOf(key) !== -1) {
+            if (this.activeKeys[key] === true) {
                 ret = true;
             }
         });
@@ -143,6 +166,8 @@ class Input {
         let diff = this.getMouseDiff();
         camera.rotateY(-diff.x * MOUSE_SENSITIVITY);
         camera.rotateX(-diff.y * MOUSE_SENSITIVITY);
+
+        //console.log(camera.position)
     }
 }
 

@@ -13,10 +13,12 @@ class Game extends Engine {
 
         stats.init();
 
-        let stars = 3000000;
+        let stars = 30000;
 
         let galaxyGen = new GalaxyGen(stars);
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
+        //
+        window.a = THREE.TextureLoader(particleImg);
 
         // create the particle variables
         var particles = new THREE.Geometry(),

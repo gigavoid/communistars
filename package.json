@@ -19,7 +19,6 @@
     "jade": "^1.11.0",
     "jade-html-loader": "0.0.3",
     "jade-loader": "^0.8.0",
-    "keyboardjs": "^0.4.2",
     "stats-js": "^1.0.0-alpha1",
     "style-loader": "^0.13.0",
     "stylus-loader": "^1.4.2",
