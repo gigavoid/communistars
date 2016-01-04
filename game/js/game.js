@@ -36,6 +36,8 @@ class Game extends Engine {
             particles,
             pMaterial);
 
+        points.computeBoundingSphere();
+
         this.scene.add(points);
 
         this.input = new Input();
