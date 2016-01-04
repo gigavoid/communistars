@@ -13,12 +13,10 @@ class Game extends Engine {
 
         stats.init();
 
-        let stars = 30000;
+        let stars = 3000000;
 
         let galaxyGen = new GalaxyGen(stars);
         //Math.acos(Math.pow(r1, 2)) * r * ((angle + r2 - 0.5) % (Math.PI * armLength))
-        //
-        window.a = THREE.TextureLoader(particleImg);
 
         // create the particle variables
         var particles = new THREE.Geometry(),
@@ -30,7 +28,7 @@ class Game extends Engine {
 
         for (var p = 0; p < stars; p++) {
             var star = galaxyGen.getStarArray()[p];
-            var particle = new THREE.Vector3(star.x, star.y, star.z);
+            var particle = star.position;
             particles.vertices.push(particle);
         }
 
@@ -46,7 +44,6 @@ class Game extends Engine {
     update(dt) {
         stats.begin();
         this.input.updateCamera(this.camera, dt);
-        console .log(this.camera.position);
         stats.end();
     }
 }
